@@ -17,4 +17,5 @@ cask 'visual-studio-code'
 cask 'google-chrome'
 cask 'spotify'
 cask 'slack'
+cask 'docker'
 
