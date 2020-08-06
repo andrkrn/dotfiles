@@ -3,5 +3,14 @@ set -e
 
 type -p brew >/dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
+for file in "$PWD"/*; do
+  name="$(basename "$file" .md)"
+  [[ $name = bin ]] && dotname="$name" || dotname=".${name}"
+
+  [[ "README script vscode" =~ $name ]] && continue
+
+  ln -sfnv ${file#$HOME/} "${HOME}/${dotname}"
+done
+
 echo "Done!"
 
