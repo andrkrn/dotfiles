@@ -12,5 +12,7 @@ for file in "$PWD"/*; do
   ln -sfnv ${file#$HOME/} "${HOME}/${dotname}"
 done
 
+brew bundle --global --no-upgrade
+
 echo "Done!"
 
