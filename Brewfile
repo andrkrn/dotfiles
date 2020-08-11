@@ -18,4 +18,5 @@ cask 'google-chrome'
 cask 'spotify'
 cask 'slack'
 cask 'docker'
+cask 'licecap'
 
