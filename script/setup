@@ -18,5 +18,7 @@ brew bundle --global --no-upgrade
 mkdir -p ~/Pictures/screenshots
 defaults write com.apple.screencapture location ~/Pictures/screenshots
 
+fonts/install.sh
+
 echo "Done!"
 
