@@ -12,6 +12,8 @@ brew 'kubernetes-cli'
 brew 'tree'
 brew 'yarn'
 brew 'stern'
+brew 'awscli'
+brew 'fzf'
 
 cask 'visual-studio-code'
 cask 'google-chrome'

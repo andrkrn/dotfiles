@@ -12,3 +12,5 @@ source ~/.zshrc.local
 export EDITOR='vi'
 
 # export BUNDLE_GITHUB__COM=<your github token>
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
