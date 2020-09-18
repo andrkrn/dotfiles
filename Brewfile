@@ -21,4 +21,4 @@ cask 'spotify'
 cask 'slack'
 cask 'docker'
 cask 'licecap'
-
+cask 'qbittorrent'
