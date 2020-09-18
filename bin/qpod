@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+usage() {
+  echo "Usage: qpod <namespace> <app> <command>"
+  echo "examples:"
+  echo "$ qpod develop api bundle exec rails c"
+  echo "$ qpod pr-1234 back-office /bin/bash"
+  exit
+}
+
+qpod() {
+  namespace=$1
+  app=$2
+
+  if [ -z "$namespace" ] || [ -z "$app" ] || [ -z "$@" ]; then
+    usage
+  fi
+
+  shift; shift;
+  kubectl get pods -n $namespace -l app=$app | grep -E -m 1 -o $app"-\w+-\w+" | xargs -o -n 1 -I pod kubectl exec -it pod -n $namespace -- $@
+}
+
+qpod
