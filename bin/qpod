@@ -9,15 +9,15 @@ usage() {
 }
 
 qpod() {
-  namespace=$1
-  app=$2
+  namespace=$1; shift;
+  app=$1; shift;
+  commands=$@
 
-  if [ -z "$namespace" ] || [ -z "$app" ] || [ -z "$@" ]; then
+  if [ -z "$namespace" ] || [ -z "$app" ] || [ -z "$commands" ]; then
     usage
   fi
 
-  shift; shift;
-  kubectl get pods -n $namespace -l app=$app | grep -E -m 1 -o $app"-\w+-\w+" | xargs -o -n 1 -I pod kubectl exec -it pod -n $namespace -- $@
+  kubectl get pods -n $namespace -l app=$app | grep -E -m 1 -o $app"-\w+-\w+" | xargs -o -n 1 -I pod kubectl exec -it pod -n $namespace -- $commands
 }
 
-qpod
+qpod $@
