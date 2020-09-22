@@ -1,0 +1,7 @@
+dbaeumer.vscode-eslint
+eamodio.gitlens
+eg2.tslint
+esbenp.prettier-vscode
+hashicorp.terraform
+ms-vscode-remote.remote-containers
+stylelint.vscode-stylelint
