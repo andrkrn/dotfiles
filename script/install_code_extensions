@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+
+type -p code >/dev/null || {
+  echo "Visual Code Studio need to be Installed";
+  exit 1;
+}
+
+filepath="$PWD/vscode/extensions.txt"
+
+while IFS= read -r line; do
+  code --install-extension $line
+done < $filepath
