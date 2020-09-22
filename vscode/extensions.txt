@@ -5,3 +5,4 @@ esbenp.prettier-vscode
 hashicorp.terraform
 ms-vscode-remote.remote-containers
 stylelint.vscode-stylelint
+rebornix.ruby
