@@ -14,6 +14,8 @@ done
 
 brew bundle --global --no-upgrade
 
+./script/install_code_extensions
+
 # set screenshots folder
 mkdir -p ~/Pictures/screenshots
 defaults write com.apple.screencapture location ~/Pictures/screenshots
