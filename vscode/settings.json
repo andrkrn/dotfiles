@@ -1,0 +1,18 @@
+{
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  "window.zoomLevel": 0,
+
+  "editor.tabSize": 2,
+
+  "tslint.autoFixOnSave": true,
+
+  // Use stylelint for scss rules
+  "prettier.disableLanguages": ["scss"],
+  "[scss]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": true
+    }
+  }
+}
