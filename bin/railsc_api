@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+kubectl config use-context qs-quipper-staging-app-admin
+qpod develop api bundle exec rails c
