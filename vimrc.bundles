@@ -15,5 +15,3 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'leafgarland/typescript-vim'
 
 call plug#end()
-
-colorscheme dracula

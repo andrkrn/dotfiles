@@ -37,7 +37,6 @@ if filereadable(expand("~/.vimrc.bundles"))
 endif
 
 colorscheme dracula
-"filetype plugin indent on
 
 " force use h/j/k/l
 nnoremap <Left> :echoe "Use h"<CR>
