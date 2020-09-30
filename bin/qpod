@@ -17,7 +17,7 @@ qpod() {
     usage
   fi
 
-  kubectl get pods -n $namespace -l app=$app | grep -E -m 1 -o $app"-\w+-\w+" | xargs -o -n 1 -I pod kubectl exec -it pod -n $namespace -- $commands
+  kubectl get pods -n $namespace -l app=$app --field-selector status.phase=Running | grep -E -m 1 -o $app"-\w+-\w+" | xargs -o -n 1 -I pod kubectl exec -it pod -n $namespace -- $commands
 }
 
 qpod $@
