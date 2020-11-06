@@ -28,5 +28,5 @@
     "editor.defaultFormatter": "golang.go"
   },
 
-  "editor.wordWrap": "on",
+  "editor.wordWrap": "on"
 }

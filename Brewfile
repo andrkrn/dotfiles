@@ -18,6 +18,7 @@ brew 'fzf'
 brew 'go'
 brew 'git-standup'
 brew 'tfenv'
+brew 'ansible'
 
 cask 'visual-studio-code'
 cask 'google-chrome'
