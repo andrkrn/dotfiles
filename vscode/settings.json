@@ -5,6 +5,7 @@
   "window.zoomLevel": 0,
 
   "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
 
   "tslint.autoFixOnSave": true,
 
@@ -14,5 +15,18 @@
     "editor.codeActionsOnSave": {
       "source.fixAll.stylelint": true
     }
-  }
+  },
+
+  // go-lang
+  "go.autocompleteUnimportedPackages": true,
+  "go.useLanguageServer": true,
+  "go.formatTool": "gofmt",
+  "go.inferGopath": true,
+  "go.lintTool": "golangci-lint",
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "golang.go"
+  },
+
+  "editor.wordWrap": "on",
 }
