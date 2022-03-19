@@ -7,7 +7,7 @@ for file in "$PWD"/*; do
   name="$(basename "$file" .md)"
   [[ $name = bin ]] && dotname="$name" || dotname=".${name}"
 
-  [[ "README script vscode fonts" =~ $name ]] && continue
+  [[ "README script vscode" =~ $name ]] && continue
 
   ln -sfnv ${file#$HOME/} "${HOME}/${dotname}"
 done
@@ -15,15 +15,13 @@ done
 brew bundle --global --no-upgrade
 
 # Install nvm
-command -v nvm >/dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh)"
+command -v nvm >/dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh)"
 
 ./script/install_code_extensions
 
 # set screenshots folder
 mkdir -p ~/Pictures/screenshots
 defaults write com.apple.screencapture location ~/Pictures/screenshots
-
-fonts/install.sh
 
 echo "Done!"
 
