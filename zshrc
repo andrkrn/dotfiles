@@ -9,7 +9,7 @@ plugins=(git docker-compose kubectl)
 source $ZSH/oh-my-zsh.sh
 
 # personal config file
-source ~/.zshrc.local
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 export EDITOR='vi'
 

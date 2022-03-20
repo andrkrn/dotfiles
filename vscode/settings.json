@@ -10,14 +10,13 @@
   "tslint.autoFixOnSave": true,
 
   // Use stylelint for scss rules
-  "prettier.disableLanguages": ["scss"],
   "[scss]": {
     "editor.codeActionsOnSave": {
       "source.fixAll.stylelint": true
     }
   },
 
-  // go-lang
+  // go lang
   "go.autocompleteUnimportedPackages": true,
   "go.useLanguageServer": true,
   "go.formatTool": "gofmt",

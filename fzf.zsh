@@ -1,5 +1,9 @@
 # Setup fzf
 # ---------
+
+# Install fzf bindings
+# $(brew --prefix)/opt/fzf/install 
+
 if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
   export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
 fi
