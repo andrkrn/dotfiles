@@ -6,7 +6,7 @@ ZSH_THEME="robbyrussell"
 
 plugins=(git docker-compose kubectl)
 
-source $ZSH/oh-my-zsh.sh
+[ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
 
 # personal config file
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
