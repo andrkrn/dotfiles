@@ -15,6 +15,8 @@ export EDITOR='vi'
 
 # export BUNDLE_GITHUB__COM=<your github token>
 
+# Install fzf bindings
+# $(brew --prefix)/opt/fzf/install
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # node version manager
