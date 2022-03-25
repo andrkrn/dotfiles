@@ -1,3 +1,8 @@
+# source homebrew for linux
+if [[ `uname` == "Linux" ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 export PATH=$HOME/bin:$PATH
 
 export ZSH="$HOME/.oh-my-zsh"

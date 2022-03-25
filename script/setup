@@ -26,9 +26,11 @@ command -v omz >/dev/null || /bin/sh -c "$(curl -fsSL https://raw.github.com/ohm
 
 ./script/install_code_extensions
 
-# set screenshots folder
-mkdir -p ~/Pictures/screenshots
-defaults write com.apple.screencapture location ~/Pictures/screenshots
+# set screenshots folder for OSX
+if [[ `uname` == "Darwin" ]]; then
+  mkdir -p ~/Pictures/screenshots
+  defaults write com.apple.screencapture location ~/Pictures/screenshots
+fi
 
 echo "Done!"
 

@@ -1,5 +1,7 @@
 tap 'homebrew/services'
 
+is_wsl = ENV['PATH'].match /WINDOWS\/system32/
+
 brew 'tmux'
 brew 'vim'
 brew 'ag'
@@ -21,12 +23,14 @@ brew 'tfenv'
 brew 'ansible'
 brew 'rbenv'
 
-cask 'visual-studio-code'
-cask 'google-chrome'
-cask 'spotify'
-cask 'slack'
-cask 'docker'
-cask 'licecap'
-cask 'qbittorrent'
-cask 'mpv'
-cask 'openvpn-connect'
+unless is_wsl
+  cask 'visual-studio-code'
+  cask 'google-chrome'
+  cask 'spotify'
+  cask 'slack'
+  cask 'docker'
+  cask 'licecap'
+  cask 'qbittorrent'
+  cask 'mpv'
+  cask 'openvpn-connect'
+end
