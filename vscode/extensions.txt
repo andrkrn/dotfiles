@@ -12,3 +12,4 @@ ms-vscode-remote.remote-containers
 rebornix.ruby
 stylelint.vscode-stylelint
 wingrunr21.vscode-ruby
+hangxingliu.vscode-nginx-conf-hint
