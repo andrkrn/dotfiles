@@ -30,3 +30,21 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 eval "$(rbenv init -)"
+
+source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+
+loadNodeVersion() {
+	if [[ -f .node-version ]]
+	then
+		local installed=$(nvm list --no-alias | grep -c $(cat .node-version))
+		if [[ installed -eq 1 ]]
+		then
+			nvm use $(cat .node-version)
+		else
+			nvm install $(cat .node-version)
+		fi
+	fi
+}
+add-zsh-hook -Uz chpwd (){ loadNodeVersion }
+loadNodeVersion
