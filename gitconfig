@@ -6,7 +6,7 @@
   username = andrkrn
 [rebase]
   autostash = true
-	autosquash = true
+  autosquash = true
 [fetch]
   prune = true
 [pull]
@@ -17,4 +17,4 @@
   required = true
   clean = git-lfs clean -- %f
 [init]
-	defaultBranch = main
+  defaultBranch = main
