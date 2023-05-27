@@ -16,7 +16,7 @@ plugins=(git docker-compose kubectl)
 # personal config file
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
-export EDITOR='vi'
+export EDITOR='vim'
 
 # export BUNDLE_GITHUB__COM=<your github token>
 
@@ -48,3 +48,4 @@ loadNodeVersion() {
 }
 add-zsh-hook -Uz chpwd (){ loadNodeVersion }
 loadNodeVersion
+

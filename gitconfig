@@ -1,5 +1,5 @@
 [core]
-  editor = vi
+  editor = vim
 [user]
   email = andrikurnia@live.com
   name = Andri Kurnia
