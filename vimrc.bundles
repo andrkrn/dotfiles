@@ -10,6 +10,10 @@ if isdirectory("/usr/local/opt/fzf")
   Plug '/usr/local/opt/fzf'
 endif
 
+if isdirectory("/opt/homebrew/opt/fzf")
+	Plug '/opt/homebrew/opt/fzf'
+endif
+
 Plug 'junegunn/fzf.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'leafgarland/typescript-vim'
