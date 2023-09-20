@@ -7,6 +7,7 @@
 [rebase]
   autostash = true
   autosquash = true
+  updateRefs = true
 [fetch]
   prune = true
 [pull]
