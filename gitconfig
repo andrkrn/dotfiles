@@ -19,3 +19,7 @@
   clean = git-lfs clean -- %f
 [init]
   defaultBranch = main
+[alias]
+	m = "commit -m '.'"
+  r = "reset HEAD^"
+  ri = "!git rebase -i HEAD~\"$1\" #"
