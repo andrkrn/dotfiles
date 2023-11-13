@@ -22,6 +22,7 @@ brew 'git-standup'
 brew 'tfenv'
 brew 'ansible'
 brew 'rbenv'
+brew 'cloudflared'
 
 unless is_wsl
   cask 'visual-studio-code'
@@ -31,6 +32,5 @@ unless is_wsl
   cask 'docker'
   cask 'licecap'
   cask 'qbittorrent'
-  cask 'mpv'
   cask 'openvpn-connect'
 end
