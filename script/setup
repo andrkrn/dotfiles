@@ -7,7 +7,7 @@ for file in "$PWD"/*; do
   name="$(basename "$file" .md)"
   [[ $name = bin ]] && dotname="$name" || dotname=".${name}"
 
-  [[ "README script vscode" =~ $name ]] && continue
+  [[ "README script vscode launchd" =~ $name ]] && continue
 
   ln -sfnv ${file#$HOME/} "${HOME}/${dotname}"
 done
