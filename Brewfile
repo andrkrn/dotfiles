@@ -1,5 +1,3 @@
-tap 'homebrew/services'
-
 is_wsl = ENV['PATH'].match /WINDOWS\/system32/
 
 brew 'tmux'
@@ -13,23 +11,18 @@ brew 'jq'
 brew 'kubectx'
 brew 'kubernetes-cli'
 brew 'tree'
-brew 'yarn'
 brew 'stern'
 brew 'awscli'
 brew 'fzf'
-brew 'go'
 brew 'git-standup'
-brew 'tfenv'
 brew 'ansible'
-brew 'rbenv'
 brew 'cloudflared'
 
 unless is_wsl
   cask 'visual-studio-code'
   cask 'google-chrome'
-  cask 'spotify'
   cask 'slack'
-  cask 'docker'
+  cask 'orbstack'
   cask 'licecap'
   cask 'qbittorrent'
   cask 'openvpn-connect'

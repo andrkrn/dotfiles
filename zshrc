@@ -13,9 +13,9 @@ export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="robbyrussell"
 
-plugins=(git docker-compose kubectl)
+plugins=(git docker-compose)
 
-[ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
 
 # personal config file
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
@@ -28,28 +28,8 @@ export EDITOR='vim'
 # $(brew --prefix)/opt/fzf/install
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# node version manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 eval "$(rbenv init -)"
+eval "$(~/.local/bin/mise activate zsh)" 
 
-[ -f /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ] && source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-[ -f /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc ] && source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-
-loadNodeVersion() {
-	if [[ -f .node-version ]]
-	then
-		local installed=$(nvm list --no-alias | grep -c $(cat .node-version))
-		if [[ installed -eq 1 ]]
-		then
-			nvm use $(cat .node-version)
-		else
-			nvm install $(cat .node-version)
-		fi
-	fi
-}
-add-zsh-hook -Uz chpwd (){ loadNodeVersion }
-loadNodeVersion
+alias claude="$HOME/.claude/local/claude"
 
