@@ -1,5 +1,6 @@
 [core]
   editor = vim
+	excludesFile = ~/.gitignore
 [user]
   email = andrikurnia@live.com
   name = Andri Kurnia
