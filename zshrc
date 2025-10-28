@@ -1,36 +1,23 @@
-# source homebrew for linux
-if [[ `uname` == "Linux" ]]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
+export ZSH="$HOME/.oh-my-zsh"
+export PATH=$HOME/bin:$PATH
+export EDITOR='vim'
+
+ZSH_THEME="robbyrussell"
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
 
 if [[ `uname` == "Darwin" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-export PATH=$HOME/bin:$PATH
-
-export ZSH="$HOME/.oh-my-zsh"
-
-ZSH_THEME="robbyrussell"
-
-plugins=(git docker-compose)
-
-source $ZSH/oh-my-zsh.sh
-
 # personal config file
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
-export EDITOR='vim'
-
 # export BUNDLE_GITHUB__COM=<your github token>
 
-# Install fzf bindings
-# $(brew --prefix)/opt/fzf/install
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 eval "$(~/.local/bin/mise activate zsh)"
-
-alias claude="~/.claude/local/claude"
 
 yw() {
   # Find .yw-config by traversing up from current directory
@@ -60,3 +47,4 @@ yw() {
 
   yarn workspace "$scope/$1" "${@:2}"
 }
+
