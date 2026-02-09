@@ -48,3 +48,5 @@ yw() {
   yarn workspace "$scope/$1" "${@:2}"
 }
 
+
+export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
