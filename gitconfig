@@ -25,7 +25,7 @@
 [init]
   defaultBranch = main
 [alias]
-	m = "commit -m '.'"
+	m = "commit -m '[skip ci].'"
   r = "reset HEAD^"
   ri = "!git rebase -i HEAD~\"$1\" #"
   pp = "!git add . && git diff-index --quiet HEAD || git m && git push origin $(git rev-parse --abbrev-ref HEAD)"
