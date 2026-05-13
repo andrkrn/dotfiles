@@ -7,10 +7,13 @@ for file in "$PWD"/*; do
   name="$(basename "$file" .md)"
   [[ $name = bin ]] && dotname="$name" || dotname=".${name}"
 
-  [[ "README script vscode launchd" =~ $name ]] && continue
+  [[ "README script vscode launchd claude" =~ $name ]] && continue
 
   ln -sfnv ${file#$HOME/} "${HOME}/${dotname}"
 done
+
+mkdir -p "${HOME}/.claude"
+ln -sfv "${PWD}/claude/settings.json" "${HOME}/.claude/settings.json"
 
 brew bundle --global --no-upgrade
 

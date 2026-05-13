@@ -1,0 +1,21 @@
+{
+  "enabledPlugins": {
+    "skill-creator@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "create-pr@andrkrn-skills": true,
+    "request-pr-review@andrkrn-skills": true,
+    "obsidian-memory@andrkrn-skills": true
+  },
+  "extraKnownMarketplaces": {
+    "andrkrn-skills": {
+      "source": {
+        "source": "github",
+        "repo": "andrkrn/skills"
+      }
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true,
+  "remoteControlAtStartup": false
+}
