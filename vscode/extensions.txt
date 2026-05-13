@@ -4,8 +4,6 @@ Dart-Code.flutter
 dbaeumer.vscode-eslint
 eamodio.gitlens
 esbenp.prettier-vscode
-GitHub.copilot
-GitHub.copilot-chat
 golang.go
 hangxingliu.vscode-nginx-conf-hint
 hashicorp.terraform
