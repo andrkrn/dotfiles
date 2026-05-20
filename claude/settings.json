@@ -21,16 +21,6 @@
   "skipDangerousModePermissionPrompt": true,
   "remoteControlAtStartup": false,
   "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "printf '%s' '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"obsidian-memory is enabled for this session. Invoke the obsidian-memory skill to read prior history for the current repository (history.md and the current monthly log) before doing other work. If the cwd is not inside a git repository, skip this step.\"}}'"
-          }
-        ]
-      }
-    ],
     "Stop": [
       {
         "hooks": [
