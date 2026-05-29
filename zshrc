@@ -19,6 +19,8 @@ fi
 
 eval "$(~/.local/bin/mise activate zsh)"
 
+eval "$(direnv hook zsh)"
+
 yw() {
   # Find .yw-config by traversing up from current directory
   local config_file=""

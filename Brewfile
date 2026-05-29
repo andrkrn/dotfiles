@@ -17,6 +17,7 @@ brew 'fzf'
 brew 'git-standup'
 brew 'ansible'
 brew 'cloudflared'
+brew 'direnv'
 
 unless is_wsl
   cask 'visual-studio-code'
