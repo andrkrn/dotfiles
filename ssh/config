@@ -1,0 +1,10 @@
+# SSH host config managed by dotfiles.
+# Included from ~/.ssh/config via:  Include ~/andrkrn/dotfiles/ssh/config
+
+Host andrkrn-desktop
+    User andrkrn
+    SetEnv TERM=xterm-256color
+
+Host oracle
+    User ubuntu
+    SetEnv TERM=xterm-256color

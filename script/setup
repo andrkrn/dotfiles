@@ -7,13 +7,20 @@ for file in "$PWD"/*; do
   name="$(basename "$file" .md)"
   [[ $name = bin ]] && dotname="$name" || dotname=".${name}"
 
-  [[ "README script vscode launchd claude" =~ $name ]] && continue
+  [[ "README script vscode launchd claude ssh" =~ $name ]] && continue
 
   ln -sfnv ${file#$HOME/} "${HOME}/${dotname}"
 done
 
 mkdir -p "${HOME}/.claude"
 ln -sfv "${PWD}/claude/settings.json" "${HOME}/.claude/settings.json"
+
+# Include dotfiles-managed SSH host config (don't symlink ~/.ssh — it holds keys)
+mkdir -p "${HOME}/.ssh"
+touch "${HOME}/.ssh/config"
+include_line="Include ${PWD}/ssh/config"
+grep -qxF "$include_line" "${HOME}/.ssh/config" || \
+  printf '\n# SSH hosts managed by dotfiles\n%s\n' "$include_line" >> "${HOME}/.ssh/config"
 
 brew bundle --global --no-upgrade
 
