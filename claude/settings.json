@@ -1,5 +1,17 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "input=$(cat); [ \"$(printf '%s' \"$input\" | jq -r '.stop_hook_active // false')\" = \"true\" ] && exit 0; sid=$(printf '%s' \"$input\" | jq -r '.session_id // empty'); [ -z \"$sid\" ] && exit 0; m=\"/tmp/claude-obsidian-stop-$sid\"; if [ -f \"$m\" ]; then age=$(( $(date +%s) - $(stat -f %m \"$m\") )); [ $age -lt 1200 ] && exit 0; fi; touch \"$m\"; printf '%s' '{\"decision\":\"block\",\"reason\":\"Before stopping: if meaningful work has happened since the last save (code changes, decisions, PRs touched, debugging conclusions, follow-ups) — invoke the obsidian-memory skill to append a brief summary to the monthly log. If only trivial activity has occurred (greetings, quick lookups, simple file reads, nothing decided) — just stop without saving. This hook re-prompts every 20 minutes per session, so skipping a trivial moment is fine; real work later will get another chance.\"}'"
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
@@ -16,20 +28,11 @@
       "autoUpdate": true
     }
   },
+  "permissions": {
+    "defaultMode": "bypassPermissions"
+  },
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
-  "remoteControlAtStartup": false,
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "input=$(cat); [ \"$(printf '%s' \"$input\" | jq -r '.stop_hook_active // false')\" = \"true\" ] && exit 0; sid=$(printf '%s' \"$input\" | jq -r '.session_id // empty'); [ -z \"$sid\" ] && exit 0; m=\"/tmp/claude-obsidian-stop-$sid\"; if [ -f \"$m\" ]; then age=$(( $(date +%s) - $(stat -f %m \"$m\") )); [ $age -lt 1200 ] && exit 0; fi; touch \"$m\"; printf '%s' '{\"decision\":\"block\",\"reason\":\"Before stopping: if meaningful work has happened since the last save (code changes, decisions, PRs touched, debugging conclusions, follow-ups) — invoke the obsidian-memory skill to append a brief summary to the monthly log. If only trivial activity has occurred (greetings, quick lookups, simple file reads, nothing decided) — just stop without saving. This hook re-prompts every 20 minutes per session, so skipping a trivial moment is fine; real work later will get another chance.\"}'"
-          }
-        ]
-      }
-    ]
-  }
+  "remoteControlAtStartup": false
 }
