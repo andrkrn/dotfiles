@@ -1,0 +1,88 @@
+-- Source for "Compress Video.app". Built by script/install_quick_actions, which
+-- substitutes __FFMPEG__/__FFPROBE__ with the resolved Homebrew paths and compiles
+-- this with osacompile. Edit this file (not the compiled app), then re-run setup.
+property ffmpegPath : "__FFMPEG__"
+property ffprobePath : "__FFPROBE__"
+
+on run
+	set theFiles to choose file with prompt "Select video(s) to compress:" with multiple selections allowed
+	processFiles(theFiles)
+end run
+
+on open theFiles
+	processFiles(theFiles)
+end open
+
+on processFiles(theFiles)
+	set fileTotal to (count of theFiles)
+	if fileTotal is 0 then return
+
+	set okCount to 0
+	set failCount to 0
+
+	set progress total steps to 100
+	set progress completed steps to 0
+	set progress description to "Compressing videos..."
+	set progress additional description to "Preparing..."
+
+	repeat with i from 1 to fileTotal
+		set f to item i of theFiles
+		set inPath to POSIX path of f
+		set qIn to quoted form of inPath
+		set fileName to do shell script "basename " & qIn
+
+		set outPath to do shell script "f=" & qIn & "; d=$(dirname \"$f\"); b=$(basename \"$f\"); n=${b%.*}; printf '%s/%s-compressed.mp4' \"$d\" \"$n\""
+		set qOut to quoted form of outPath
+
+		try
+			set durText to do shell script ffprobePath & " -v error -show_entries format=duration -of default=nw=1:nk=1 " & qIn
+			set durSecs to durText as number
+		on error
+			set durSecs to 0
+		end try
+		if durSecs < 0.001 then set durSecs to 1
+
+		set progFile to do shell script "mktemp -t compressvid"
+		set qProg to quoted form of progFile
+
+		do shell script "nohup " & ffmpegPath & " -y -i " & qIn & " -c:v libx264 -crf 23 -preset medium -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 128k -progress " & qProg & " -nostats " & qOut & " >/dev/null 2>&1 & echo $!"
+		set pid to result
+
+		delay 0.4
+		-- Track real encoder progress; cap the bar at 99% until the file is verified complete.
+		repeat while (do shell script "kill -0 " & pid & " 2>/dev/null && echo yes || echo no") is "yes"
+			try
+				set curUs to (do shell script "grep '^out_time_us=' " & qProg & " | tail -1 | cut -d= -f2") as number
+			on error
+				set curUs to 0
+			end try
+			set fileFrac to (curUs / 1000000) / durSecs
+			if fileFrac > 0.99 then set fileFrac to 0.99
+			if fileFrac < 0 then set fileFrac to 0
+			set overall to ((i - 1) + fileFrac) / fileTotal
+			set progress completed steps to (overall * 100) as integer
+			set progress description to "Compressing " & i & " of " & fileTotal & ": " & fileName
+			set progress additional description to ((fileFrac * 100) as integer as string) & "%"
+			delay 0.4
+		end repeat
+
+		-- ffmpeg has exited: confirm the output is a complete, valid video before counting it done.
+		set progress additional description to "Finalizing..."
+		set okThisFile to false
+		try
+			set outDur to (do shell script ffprobePath & " -v error -show_entries format=duration -of default=nw=1:nk=1 " & qOut) as number
+			if outDur >= (durSecs * 0.98) then set okThisFile to true
+		end try
+		if okThisFile then
+			set okCount to okCount + 1
+		else
+			set failCount to failCount + 1
+		end if
+		do shell script "rm -f " & qProg
+		set progress completed steps to ((i / fileTotal) * 100) as integer
+	end repeat
+
+	set progress completed steps to 100
+	set progress additional description to "Finished"
+	display notification ("Compressed " & okCount & ", failed " & failCount) with title "Compress Video"
+end processFiles

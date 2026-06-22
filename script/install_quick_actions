@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+# Install macOS Finder Quick Actions from this repo.
+# Currently: "Compress Video" (ffmpeg-based, with a live progress bar).
+# Idempotent; safe to re-run. Invoked from script/setup on macOS.
+set -e
+
+[[ "$(uname)" == "Darwin" ]] || { echo "Quick Actions are macOS-only; skipping."; exit 0; }
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+SRC="$ROOT/macos/compress-video"
+
+FFMPEG="$(command -v ffmpeg || true)"
+FFPROBE="$(command -v ffprobe || true)"
+if [[ -z "$FFMPEG" || -z "$FFPROBE" ]]; then
+  echo "ffmpeg/ffprobe not found on PATH (is the Brewfile installed?); skipping Compress Video."
+  exit 0
+fi
+
+# Build "Compress Video.app" from the AppleScript template, injecting the resolved
+# ffmpeg/ffprobe paths so it works on both Apple Silicon and Intel.
+mkdir -p "$HOME/Applications"
+tmp="$(mktemp -t compressvidsrc).applescript"
+sed -e "s|__FFMPEG__|$FFMPEG|" -e "s|__FFPROBE__|$FFPROBE|" \
+  "$SRC/CompressVideo.applescript.tmpl" > "$tmp"
+rm -rf "$HOME/Applications/Compress Video.app"
+osacompile -o "$HOME/Applications/Compress Video.app" "$tmp"
+rm -f "$tmp"
+
+# Symlink the Quick Action workflow into ~/Library/Services so repo edits propagate.
+# Remove any existing entry first (a real dir from a prior install would otherwise
+# cause ln to nest the symlink inside it).
+mkdir -p "$HOME/Library/Services"
+rm -rf "$HOME/Library/Services/Compress Video.workflow"
+ln -s "$SRC/Compress Video.workflow" "$HOME/Library/Services/Compress Video.workflow"
+
+# Refresh Finder's services registry.
+/System/Library/CoreServices/pbs -flush >/dev/null 2>&1 || true
+
+echo "Installed Quick Action: Compress Video (right-click a video -> Quick Actions)."
