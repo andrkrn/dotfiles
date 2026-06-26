@@ -52,3 +52,13 @@ yw() {
 
 
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
+
+# Recover terminal after a remote/TUI session leaves mouse reporting on.
+# When ssh/tmux/vim exits uncleanly it can skip the "disable mouse" escape
+# sequences, so cursor movement gets injected as garbage input. This runs
+# before every prompt and turns mouse reporting back off.
+autoload -Uz add-zsh-hook
+_reset_mouse_reporting() {
+  printf '\e[?1000l\e[?1002l\e[?1003l\e[?1006l\e[?1015l' >/dev/tty 2>/dev/null
+}
+add-zsh-hook precmd _reset_mouse_reporting
