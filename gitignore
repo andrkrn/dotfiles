@@ -3,3 +3,7 @@ node_modules/
 *.log
 *.tmp
 .yw-config
+
+# mise machine-local config overrides (never committed)
+.mise.local.toml
+mise.local.toml
