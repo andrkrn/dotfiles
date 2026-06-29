@@ -62,3 +62,43 @@ _reset_mouse_reporting() {
   printf '\e[?1000l\e[?1002l\e[?1003l\e[?1006l\e[?1015l' >/dev/tty 2>/dev/null
 }
 add-zsh-hook precmd _reset_mouse_reporting
+
+# gco: like `git checkout`, but if the target branch is already checked out in
+# another worktree, cd into that worktree instead of failing with
+# "fatal: '<branch>' is already used by worktree at ...".
+# Overrides the oh-my-zsh git-plugin `gco` alias.
+unalias gco 2>/dev/null
+gco() {
+  # Only intercept a single plain branch arg; pass through flags, -b, files, `-`, multi-arg.
+  if [[ $# -ne 1 || "$1" == -* ]]; then
+    git checkout "$@"
+    return
+  fi
+
+  local branch="$1"
+  local current_root wt
+  current_root=$(git rev-parse --show-toplevel 2>/dev/null)
+
+  wt=$(git worktree list --porcelain 2>/dev/null | awk -v b="refs/heads/$branch" '
+    /^worktree /{wt=substr($0, 10)}
+    $0 == "branch " b {print wt; exit}
+  ')
+
+  if [[ -n "$wt" && "$wt" != "$current_root" ]]; then
+    echo "Branch '$branch' lives in another worktree — switching:"
+    echo "  $wt"
+    cd "$wt"
+  else
+    git checkout "$branch"
+  fi
+}
+# Restore branch/tag completion lost when gco stopped being a `git checkout` alias.
+# Replicate alias-expansion (`gco x` -> `git checkout x`) then dispatch via _normal,
+# instead of the `compdef _git gco=git-checkout` service form which triggers a bug in
+# git's bundled zsh completion (__git_find_on_cmdline: unknown condition: -lt).
+_gco() {
+  words=(git checkout "${(@)words[2,-1]}")
+  (( CURRENT++ ))
+  _normal
+}
+compdef _gco gco
