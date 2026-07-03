@@ -16,3 +16,11 @@ Host oracle
     ServerAliveInterval 20
     ServerAliveCountMax 3
     TCPKeepAlive yes
+
+Host mac-mini
+    User andrkrn
+    SetEnv TERM=xterm-256color
+    # Detect/recover dead connections fast and survive idle NAT timeouts.
+    ServerAliveInterval 20
+    ServerAliveCountMax 3
+    TCPKeepAlive yes
