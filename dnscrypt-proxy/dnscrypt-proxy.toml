@@ -1,0 +1,56 @@
+##############################################################################
+#  dnscrypt-proxy — encrypted DNS (DoH / DNSCrypt) resolver                   #
+#                                                                            #
+#  Replaces `cloudflared proxy-dns`, which Cloudflare removed from all       #
+#  releases starting 2026-02-02 (deleted in cloudflared v2026.2.0).          #
+#                                                                            #
+#  Managed in andrkrn/dotfiles. Symlinked by script/setup to                 #
+#  /opt/homebrew/etc/dnscrypt-proxy.toml. See dnscrypt-proxy/README.md.      #
+##############################################################################
+
+# Listen locally. Point the system DNS at 127.0.0.1 to route through this.
+listen_addresses = ['127.0.0.1:53', '[::1]:53']
+max_clients = 250
+
+# Upstreams: encrypted DoH / DNSCrypt resolvers reached over 443, so they
+# survive ISP DNS hijacking and port-853 (DoT) filtering. Tried in order.
+server_names = ['cloudflare', 'google', 'quad9-doh-ip4-port443-filter-pri']
+
+ipv4_servers = true
+ipv6_servers = false
+dnscrypt_servers = true
+doh_servers = true
+
+# Only pick resolvers that do DNSSEC and don't log queries.
+require_dnssec = true
+require_nolog = true
+require_nofilter = false
+
+force_tcp = false
+timeout = 5000
+keepalive = 30
+
+# Used once at startup to resolve the resolvers' own hostnames.
+bootstrap_resolvers = ['9.9.9.9:53', '1.1.1.1:53']
+ignore_system_dns = true
+
+# Local cache.
+cache = true
+cache_size = 4096
+cache_min_ttl = 2400
+cache_max_ttl = 86400
+cache_neg_min_ttl = 60
+cache_neg_max_ttl = 600
+
+# Signed resolver list — defines what the names in `server_names` resolve to.
+[sources]
+  [sources.public-resolvers]
+  urls = [
+    'https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md',
+    'https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md',
+    'https://cdn.jsdelivr.net/gh/DNSCrypt/dnscrypt-resolvers@master/v3/public-resolvers.md'
+  ]
+  cache_file = '/opt/homebrew/var/dnscrypt-proxy/public-resolvers.md'
+  minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
+  refresh_delay = 73
+  prefix = ''

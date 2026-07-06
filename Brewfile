@@ -16,7 +16,8 @@ brew 'awscli'
 brew 'fzf'
 brew 'git-standup'
 brew 'ansible'
-brew 'cloudflared'
+brew 'cloudflared' # kept for `cloudflared tunnel`; DoH moved to dnscrypt-proxy
+brew 'dnscrypt-proxy'
 brew 'direnv'
 
 unless is_wsl
