@@ -10,6 +10,9 @@ source $ZSH/oh-my-zsh.sh
 
 if [[ `uname` == "Darwin" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
+
+  # curl is keg-only; prefer Homebrew's over the system one
+  [ -d "$HOMEBREW_PREFIX/opt/curl/bin" ] && export PATH="$HOMEBREW_PREFIX/opt/curl/bin:$PATH"
 fi
 
 # personal config file
