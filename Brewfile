@@ -28,5 +28,4 @@ unless is_wsl
   cask 'orbstack'
   cask 'licecap'
   cask 'qbittorrent'
-  cask 'openvpn-connect'
 end
