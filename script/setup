@@ -36,6 +36,13 @@ if [[ `uname` == "Darwin" ]]; then
   mkdir -p ~/Pictures/screenshots
   defaults write com.apple.screencapture location ~/Pictures/screenshots
 
+  # Auto-delete screenshots/recordings older than 7 days
+  agent="com.andrkrn.cleanup-screenshots"
+  mkdir -p ~/Library/LaunchAgents
+  cp "${PWD}/macos/${agent}.plist" ~/Library/LaunchAgents/
+  launchctl bootout "gui/$(id -u)/${agent}" 2>/dev/null || true
+  launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/${agent}.plist
+
   ./script/install_quick_actions
 fi
 
