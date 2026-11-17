@@ -39,7 +39,7 @@ if [[ `uname` == "Darwin" ]]; then
   # Auto-delete screenshots/recordings older than 7 days
   agent="com.andrkrn.cleanup-screenshots"
   mkdir -p ~/Library/LaunchAgents
-  cp "${PWD}/macos/${agent}.plist" ~/Library/LaunchAgents/
+  sed "s|__HOME__|${HOME}|g" "${PWD}/macos/${agent}.plist" > ~/Library/LaunchAgents/${agent}.plist
   launchctl bootout "gui/$(id -u)/${agent}" 2>/dev/null || true
   launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/${agent}.plist
 

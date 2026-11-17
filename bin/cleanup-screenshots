@@ -1,0 +1,6 @@
+#!/bin/sh
+# Permanently delete default-named screenshots/recordings older than 7 days.
+# Run daily by the com.andrkrn.cleanup-screenshots launch agent.
+
+exec find "$HOME/Pictures/screenshots" -maxdepth 1 -type f -mtime +7d \
+  \( -name 'Screenshot *' -o -name 'Screen Recording *' \) -delete

@@ -4,13 +4,9 @@
 <dict>
   <key>Label</key>
   <string>com.andrkrn.cleanup-screenshots</string>
-  <!-- Permanently delete default-named screenshots/recordings older than 7 days -->
-  <key>ProgramArguments</key>
-  <array>
-    <string>/bin/sh</string>
-    <string>-c</string>
-    <string>find "$HOME/Pictures/screenshots" -maxdepth 1 -type f -mtime +7d \( -name 'Screenshot *' -o -name 'Screen Recording *' \) -delete</string>
-  </array>
+  <!-- __HOME__ is substituted by script/setup when installing -->
+  <key>Program</key>
+  <string>__HOME__/bin/cleanup-screenshots</string>
   <key>RunAtLoad</key>
   <true/>
   <key>StartCalendarInterval</key>
